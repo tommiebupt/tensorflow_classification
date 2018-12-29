@@ -47,24 +47,22 @@ class GenderEvalData(Dataset):
       image_dir,
       path_pattern)
 
-  def load_data(self, anno_file, data_dir, third_cate_list=None):
+  def load_data(self, anno_file, data_dir):
     stats_dict = {}
     labels = []
-    image_labels = []
+    images = []
     for line in file(anno_file):
       fields = line.strip().split("\t")
       image_path, label = fields[0], fields[1]
-      image_name = image_path.strip().split("/")[-1]
-      impath = os.path.join(data_dir, image_name)
-      if os.path.exists(impath) and image_name.endswith(".jpg"):
-        labels.append(int(label))
-        image_labels.append(os.path.join(data_dir, image_name))
-
-    self._num_samples = len(image_labels)
+      impath = os.path.join(data_dir, image_path)
+      if os.path.exists(impath) and image_path.endswith(".jpg"):
+        labels.append(label)
+        images.append(impath)
+    self._num_samples = len(labels)
     self._image_dir = data_dir
-    self._image_paths = np.array(image_labels)
-    self._labels = np.array(labels)
-    print("num samples:%d, female:%d"%(self._num_samples,sum(labels)))
+    self._image_paths = np.array(images)
+    self._labels = np.array(labels).astype(int)
+    print("load num samples:%d from %s"%(self._num_samples, data_dir))
   #enddef
 #endclass
 

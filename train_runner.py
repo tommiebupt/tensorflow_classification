@@ -39,7 +39,6 @@ tf.app.flags.DEFINE_float('learning_rate_decay_factor', 0.16,
                           """Learning rate decay factor.""")
 
 
-
 class Train(object):
   def __init__(self, dataset, 
     checkpoint_exclude_scopes = "resnet_v1_50/logits",
@@ -265,7 +264,7 @@ if __name__ == "__main__":
   from gender_data import GenderTrainData 
   os.environ['TF_CPP_MIN_LOG_LEVEL']='3'
   g_train_data = GenderTrainData(num_classes=6)
-  g_train_data.load_data("/export/data0/user/taoriming/data/jd_image/annotation_train.txt", 
-      "/export/data0/user/taoriming/data/jd_image/") #model.
+  g_train_data.load_data("annotation_train.txt", 
+      "images/") #model.
   Train(g_train_data).start()
 
