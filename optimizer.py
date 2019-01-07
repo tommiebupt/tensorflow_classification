@@ -201,16 +201,19 @@ class OptimizeGraph(object):
                   self._end_points['AuxLogits'], labels,
                   label_smoothing=self._label_smoothing, weights=0.4,
                   scope='aux_loss')
-          #slim.losses.softmax_cross_entropy(
-            #  self._logits, labels, label_smoothing=self._label_smoothing, weights=1.0)
+    slim.losses.softmax_cross_entropy(
+      self._logits, labels, label_smoothing=self._label_smoothing, weights=1.0)
+
+    ##Focal Loss
+    """
     weights = tf.gather_nd(tf.nn.softmax(self._logits),
       tf.concat([tf.expand_dims(tf.range(labels.get_shape().as_list()[0]),-1), 
       tf.expand_dims(tf.cast(tf.argmax(labels, -1), tf.int32),-1)], 1))  
     pow_weights = tf.square(1- weights)
     tf.losses.softmax_cross_entropy(
       labels, self._logits, label_smoothing=self._label_smoothing, weights=pow_weights)
-
-       #Gather losses.  
+    """
+    #Gather losses.  
     regularization_losses = tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES)
     regularization_loss = tf.add_n(regularization_losses, name='regularization_loss')
     losses = tf.get_collection(tf.GraphKeys.LOSSES)
