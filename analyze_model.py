@@ -155,7 +155,7 @@ def false_prediction():
 def test_extract_tensors():
   tensor_value_dict = extract_tensors_by_pb(['resnet_v1_50/logits/BiasAdd:0', 
       'resnet_v1_50/block4/unit_3/bottleneck_v1/Relu:0'],
-      "../../data/jd_image/test/5a54d7dbN4b6d527e.jpg",
+      "./test/5a54d7dbN4b6d527e.jpg",
       "./output/pb/model.pb")  
   
   # NOTE: thread suspended!
@@ -167,7 +167,7 @@ def test_extract_tensors():
 #enddef
 
 def test_cam_maps():
-  cam_maps( "../../data/jd_image/test/5a54d7dbN4b6d527e.jpg",
+  cam_maps( "./test/5a54d7dbN4b6d527e.jpg",
       "./output/pb/model.pb")
 #enddef
 
